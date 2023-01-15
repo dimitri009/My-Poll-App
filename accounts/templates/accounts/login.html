@@ -1,0 +1,33 @@
+{% extends "polls/base.html" %}
+{% load bootstrap3 %}
+{% load i18n %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <div class=" form-login">
+                    {% if user.is_authenticated %}
+                        <h4>{% blocktrans with nickname=user.nickname %}You are already logged in as {{ nickname }}...{% endblocktrans %}</h4>
+                    {% else %}
+                        <h4>{% bootstrap_icon "user" %} {% trans 'Log in'%}</h4>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {% bootstrap_form form%}
+                            <input type="hidden" name="next" value="{{ next }}" />
+                            <div class="submit col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                              <button type="submit" class="btn btn-lg btn-custom col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                {% bootstrap_icon "log-in" %} {% trans 'Log in' %}
+                              </button>
+                            </div>
+			    <div class="text-center">
+			      {% trans 'No account yet?' %} <a href="{% url 'register' %}"> {% trans 'Create one' %}</a>
+			    </div>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

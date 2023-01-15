@@ -1,0 +1,56 @@
+{% load static %}
+{% load i18n %}
+{% load bootstrap3 %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% trans ' My Poll App - Polling in a easier way ' %}</title>
+</head>
+<body >
+<div style="padding: 20px;">
+  <h3>My Poll App</h3>
+  <h4>{% trans 'Poll' %}{{ title }}</h4>{% autoescape on %}
+     Hello voter,
+
+
+    {%  if poll.preference_model == "Ranks#0"%}
+        <p>You have been invited to by <strong>{{ poll.admin}}</strong> to participate in election, you have to rank
+            the alternatives from the best to the worse for you.</p>
+        <p>The method used to determinate the winner(s) is <strong>Simpson voting</strong>.</p>
+    {% elif poll.preference_model == "Approval" %}
+        <p>You have been invited to by <strong>{{ poll.admin}}</strong> to participate in election, you have to select the alternatives
+            that you approved.</p>
+        <p>The method used to determinate the winner(s) is <strong>Approval voting</strong>.</p>
+    {% else %}
+        <p>You have been invited to by <strong>{{ poll.admin}}</strong> to participate in election, you have to rank
+            the alternatives from the best to the worse for you.</p>
+        <p>The method used to determinate the winner(s) is <strong>Borda voting</strong>.</p>
+    {% endif %}{% endautoescape %}
+
+
+    {% blocktrans with url=url certi=certi %}You can vote using this url {{ url }} and certificate {{ certi }}.{% endblocktrans %}
+
+
+     <p> You will be able to check the results, once the election will be closed. After the {{ poll.closing_date }}</p>
+
+    <p>Thank you !</p>
+
+
+<p> From <strong>My poll App Team</strong>.</p>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

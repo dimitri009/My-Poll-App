@@ -1,0 +1,79 @@
+{% extends "polls/base-view.html" %}
+{% load i18n %}
+{% load static %}
+{% load bootstrap3 %}
+{% block static-extra %}
+
+<div class="polltitle">
+  <div class="container">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h2>{{ poll.title }}</h2>
+    </div>
+    <div class=" col-xs-12 col-sm-6 col-md-6 col-lg-6">
+      {% if poll.description %}
+      <p class="description">{{ poll.description }}</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<div class ="container">
+<table class ="table">
+    <thead>
+    <tr>
+        <th> K-max Table </th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for x in data.borda %}
+        <tr>
+    <td>
+
+        {% for y in x %}
+        {{ y.x }} {{ y.y }} {{ "|" }}
+        {% endfor %}
+    </td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+</div>
+<div class ="container">
+<table class ="table">
+    <thead>
+    <tr>
+        <th> Winner(s) </th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for x in win1 %}
+        <tr>
+    <td>
+
+        {{ x.x }} {{ x.y }} {{ "|" }}
+
+    </td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+</div>
+
+    </form>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin2">
+      <a data-toggle="collapse" href="#explanation" class="btn btn-custom col-xs-12 col-sm-12 col-md-12 col-lg-12" >{% bootstrap_icon "info-sign" %} {% trans 'More about the' %} {{ title }}</a>
+    </div>
+    <div class="collapse col-xs-12 col-sm-12 col-md-12 col-lg-12" id="explanation">
+      {{ explanation }}
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin2">
+      <a href="{% url 'results' poll.id %}" class="btn btn-custom col-xs-12 col-sm-12 col-md-12 col-lg-12">{% bootstrap_icon "stats" %} {% trans 'Back to the results' %}</a>
+    </div>    
+  </div>
+
+    </div>
+{% endblock %}

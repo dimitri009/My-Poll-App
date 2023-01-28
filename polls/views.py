@@ -231,6 +231,8 @@ def new_poll(request, choice):  ################################### PAGE 1
                 poll.ballot_type = 'Secret'
             if int(choice) == 23:
                 poll.ballot_type = 'Experimental'
+            if int(choice) == 20:
+                poll.ballot_type = 'Standard'
 
             poll.save()
             messages.success(request, mark_safe(_('General parameters successfully created!')))
@@ -304,10 +306,15 @@ def advanced_parameters(request, poll):  ######################### PAGE 3
 def invitation(request, poll):  ################################### PAGE 4
     """Renders the very last poll creation page.
     This page is mostly dedicated to the invitation of voters."""
+    if poll.ballot_type == "Standard":
+        messages.warning(request, mark_safe(_('You can\'t invite people to participate in a fake survey!')))
     update_poll = "update" in request.session and int(request.session["update"]) != 1
     invited_voters = MyPollAppUserAnonymous.objects.filter(poll=poll.id)
     if request.method == 'POST':
         form = InviteForm(request.POST)
+        if poll.ballot_type == "Standard":
+            messages.error(request, mark_safe(_('You can\'t invite people to participate in a fake survey!')))
+            return redirect(reverse_lazy(view_poll, args=(poll.id,)))
         if form.is_valid():
             for email in form.cleaned_data['email']:
                 certi = MyPollAppUserAnonymous.id_generator()
@@ -570,7 +577,7 @@ def vote(request, poll):
     read_only_nickname = True
     # Here we will get the voter or create a new one
     voter = None
-    if poll.ballot_type == "Secret" or "Standard":
+    if poll.ballot_type == "Secret":
         if request.user.is_authenticated:
             voter = request.user
         else:
@@ -578,8 +585,8 @@ def vote(request, poll):
     else:
         if poll.ballot_type == "Experimental":
             voter = UserAnonymous(nickname=UserAnonymous.nickname_generator(poll.id), poll=poll)
-        elif request.user.is_authenticated:
-            voter = request.user
+        # elif request.user.is_authenticated:
+            # voter = request.user
         else:
             read_only_nickname = False
             voter = User()
@@ -597,7 +604,7 @@ def vote(request, poll):
     # - to check for errors
     # - to update the voter's scores
     if request.method == 'POST':
-        if (poll.ballot_type == "Secret" or "Standard") and "user" in request.session:
+        if (poll.ballot_type == "Secret") and "user" in request.session:
             del request.session["user"]
         voting_form = VotingForm(candidates, preference_model, poll, request.POST)
         nickname_form = NickNameForm(read_only_nickname, request.POST)
@@ -667,7 +674,7 @@ def update_vote(request, poll, voter):
     initial = {'value' + str(score.candidate.id): score.value for score in scores}
 
     # This variable determines whether the nickname can be set or not
-    read_only_nickname = poll.ballot_type == "Standard" or request.user.is_authenticated
+    read_only_nickname = poll.ballot_type == "Secret" or request.user.is_authenticated
 
     # The two forms in the page (nickname, voting form)
     voting_form = VotingForm(candidates, preference_model, poll, initial=initial)

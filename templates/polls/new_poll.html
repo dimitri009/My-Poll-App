@@ -10,7 +10,7 @@
   </div>
     <div class="col-md-12 text-center">
         <button type="button" class="btn">
-        <a href="{% url 'newPoll' 20 %}" >
+        <a href="{% url 'newPoll' 22 %}" >
 	    <h4 class="list-group-item-heading"><i class="fa fa-list-ul"></i> {% trans 'Go Poll !!'%}</h4>
 	    <p class="list-group-item-text">{%  trans 'Make your own survey. First read the explanation bellow !'%}</p>
         </a>
@@ -53,11 +53,19 @@
     </div>
     <div class="col-md-12 text-center">
         <button type="button" class="btn">
-        <a href="{% url 'newPoll' 23 %}" >
+        <a href="{% url 'newPoll' 20 %}" >
 	    <h4 class="list-group-item-heading"><i class="fa fa-list-ul"></i> {% trans 'Experimental'%}</h4>
 	    <p class="list-group-item-text">{%  trans 'Here you can create a fake survey to try the methods ! Learning By Doing !'%}</p>
         </a>
         </button>
+        <div class="col-md-12 col-sm-6 ">
+
+                <span class="caption">
+                       <h4> {% trans 'Experimental explanation' %}</h4>
+                        <blockquote>{% trans 'Here you can create a fake survey to try the methods and see how the Web app works.' %}</blockquote>
+                        <blockquote>{% trans 'You can vote several times and see the results, but you are not allowed to invite people to partecipate in your survey. '  %}</blockquote>
+            </span>
+            </div>
     </div>
 <script src="{% static 'polls/js/choice_ballot.js' %}" type="text/javascript"></script>
 

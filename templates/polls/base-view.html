@@ -58,7 +58,7 @@
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
              <span class="sr-only">Toggle navigation</span> <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand" href="{% url 'home' %}" ><img src="{% static ' ' %}" alt="My Poll App"/></a>
+            <a class="navbar-brand" href="{% url 'home' %}" >My Poll App</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse" >
             <ul  class="nav navbar-nav navbar-right">
@@ -79,22 +79,7 @@
                         {% endif %}
 
                     </ul>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static 'polls/images/language.png' %}" alt="language"/> <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                      <li><button type="submit" class="flag" form="en"><img src="{% static 'polls/images/english.png' %}" alt="en" width="20px" height="12px"/> English</button></li>
-                      <li><button type="submit" class="flag" form="fr"><img src="{% static 'polls/images/french.png' %}" alt="fr" width="20px" height="12px"/> Français</button></li>
-		    </ul>
-		</li>
 
-                <form action="{% url 'set_language' %}" method="post" class=" navbar-form" id="fr">{% csrf_token %}
-                    <input name="next" type="hidden" value="{{ redirect_to }}" />
-                    <input name="language" type="hidden" value="fr" />
-                </form>
-                <form action="{% url 'set_language' %}" method="post" class="navbar-form" id="en">{% csrf_token %}
-                    <input name="next" type="hidden" value="{{ redirect_to }}" />
-                    <input name="language" type="hidden" value="en" />
-                </form>
             </ul>
 
         </div>

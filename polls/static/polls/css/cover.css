@@ -267,7 +267,7 @@ header .intro-text .subtitle {
 }
 
 section#who {
-    background-image: linear-gradient(to right, green , gold);
+    background: white;
 }
 
 section#who hr.star-primary:after {

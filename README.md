@@ -13,7 +13,7 @@ govern the entire application. A brief overview is explained below:
 - my_poll_app: This is the external root folder. It's the container for the project and we could give it any name. This folder
   contains the entire application.
 - accounts: Our project contains two applications within it
-  ( or Python package) and this directory is one of them, it mainly serves to manage user movements (registrations, connections,
+  (or Python package) and this directory is one of them, it mainly serves to manage user movements (registrations, connections,
   access level).
 - mbakop_polls: This folder contains the project settings,
   like *settings.py* and *urls.py*.

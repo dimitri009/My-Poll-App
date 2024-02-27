@@ -30,7 +30,7 @@ useful in managing user movements (registrations, connections,
   poll display (personal area, votes, results).
 - venv: This is a folder created bynazionalenv (it is a tool for
   create isolated Python environments) which contains all the executables needed to use the packages our Python project would need.
-- db.sqlite3: As seen above it is a lightweight SQL database file
+- db.sqlite3: It is a lightweight SQL database file
   created with SQLite software. It's a database in a file itself and imple
 mint a self-contained, complete and highly developed SQL database engine
   reliable.
